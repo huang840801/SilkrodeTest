@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.guanhong.silkrodetest.R
@@ -17,6 +18,7 @@ class UserFragment : Fragment(), UserAdapter.UserAdapterListener {
 
     private lateinit var adapter: UserAdapter
     private lateinit var recyclerView: RecyclerView
+    private lateinit var progressBar: ProgressBar
 
     private val perPage = 10
     private var fromId = 0
@@ -29,6 +31,7 @@ class UserFragment : Fragment(), UserAdapter.UserAdapterListener {
 
         val view = inflater.inflate(R.layout.fragment_user, container, false)
         recyclerView = view.findViewById(R.id.recyclerView)
+        progressBar = view.findViewById(R.id.progressBar)
 
         return view
     }
@@ -42,6 +45,8 @@ class UserFragment : Fragment(), UserAdapter.UserAdapterListener {
         viewModel.userList.observe(viewLifecycleOwner, { userList ->
 
             adapter.setUserList(userList)
+
+            hideProgressBar()
         })
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -49,7 +54,9 @@ class UserFragment : Fragment(), UserAdapter.UserAdapterListener {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                if (!recyclerView.canScrollVertically(1)) {
+                if (!recyclerView.canScrollVertically(1) && fromId < 50) {
+
+                    showProgressBar()
 
                     fromId += perPage
                     viewModel.getUserList(perPage, fromId)
@@ -64,5 +71,15 @@ class UserFragment : Fragment(), UserAdapter.UserAdapterListener {
 
         val intent = UserDetailActivity.getIntent(requireContext(), user)
         startActivity(intent)
+    }
+
+    private fun showProgressBar() {
+
+        progressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideProgressBar() {
+
+        progressBar.visibility = View.GONE
     }
 }
