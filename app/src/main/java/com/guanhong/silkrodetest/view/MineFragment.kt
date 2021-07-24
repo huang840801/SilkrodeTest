@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.guanhong.silkrodetest.R
 
-class InfoFragment : Fragment() {
+class MineFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -15,8 +15,6 @@ class InfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_info, container, false)
-
-        return view
+        return inflater.inflate(R.layout.fragment_mine, container, false)
     }
 }

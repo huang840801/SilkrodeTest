@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val userFragment = UserFragment()
-        val infoFragment = InfoFragment()
+        val infoFragment = MineFragment()
 
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigation)
         val viewPager = findViewById<ViewPager>(R.id.viewPager)
