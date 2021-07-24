@@ -8,6 +8,7 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.guanhong.silkrodetest.MainViewModel
 import com.guanhong.silkrodetest.R
+import com.guanhong.silkrodetest.view.user.UserFragment
 import org.koin.android.ext.android.get
 
 class MainActivity : AppCompatActivity() {
@@ -56,6 +57,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.userList.observe(this, { userList ->
 
+            userFragment.setUserList(userList)
         })
 
         viewModel.getUserList()
