@@ -1,19 +1,15 @@
 package com.guanhong.silkrodetest.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.guanhong.silkrodetest.MainViewModel
 import com.guanhong.silkrodetest.R
 import com.guanhong.silkrodetest.view.user.UserFragment
-import org.koin.android.ext.android.get
 
 class MainActivity : AppCompatActivity() {
-
-    private val viewModel: MainViewModel = get()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,12 +50,5 @@ class MainActivity : AppCompatActivity() {
 
             true
         }
-
-        viewModel.userList.observe(this, { userList ->
-
-            userFragment.setUserList(userList)
-        })
-
-        viewModel.getUserList()
     }
 }

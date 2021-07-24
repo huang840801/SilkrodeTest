@@ -1,7 +1,9 @@
-package com.guanhong.silkrodetest
+package com.guanhong.silkrodetest.view.user
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.guanhong.silkrodetest.ApiService
+import com.guanhong.silkrodetest.User
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -11,7 +13,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MainViewModel : ViewModel() {
+class UserViewModel : ViewModel() {
 
     private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl("https://api.github.com")
@@ -23,9 +25,9 @@ class MainViewModel : ViewModel() {
 
     var userList = MutableLiveData<List<User>>()
 
-    fun getUserList() {
+    fun getUserList(perPage: Int, fromId: Int) {
 
-        apiService.getUserList()
+        apiService.getUserList(perPage, fromId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : SingleObserver<Response<List<User>>> {
@@ -35,7 +37,7 @@ class MainViewModel : ViewModel() {
 
                 override fun onSuccess(response: Response<List<User>>) {
 
-                    userList.value = response.body()!!
+                    userList.value = userList.value?.toMutableList().orEmpty() + response.body()!!
                 }
             })
     }
