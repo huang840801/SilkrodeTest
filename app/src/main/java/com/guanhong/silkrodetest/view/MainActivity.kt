@@ -8,10 +8,11 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.guanhong.silkrodetest.MainViewModel
 import com.guanhong.silkrodetest.R
+import org.koin.android.ext.android.get
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel = get()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +54,6 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        viewModel = MainViewModel()
         viewModel.userList.observe(this, { userList ->
 
         })
