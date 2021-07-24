@@ -6,9 +6,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.guanhong.silkrodetest.MainViewModel
 import com.guanhong.silkrodetest.R
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var viewModel: MainViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -49,5 +53,11 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+        viewModel = MainViewModel()
+        viewModel.userList.observe(this, { userList ->
+
+        })
+
+        viewModel.getUserList()
     }
 }
