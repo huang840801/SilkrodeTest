@@ -71,5 +71,4 @@ class UserFragment : Fragment(), UserAdapter.UserAdapterListener {
         val intent = UserDetailActivity.getIntent(requireContext(), user)
         startActivity(intent)
     }
-
 }

@@ -30,7 +30,7 @@ class UserAdapter(private val listener: UserAdapterListener) :
 
         return when (viewType) {
 
-            normalType -> UserHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_view_user, parent, false), this)
+            normalType -> UserHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_view_user, parent, false), this, parent.context)
             loadingType -> LoadingHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_all_loading, parent, false))
             else -> throw Exception()
         }

@@ -12,7 +12,7 @@ data class Users(
 data class User(
 
     @SerializedName("login") val name: String,
-    @SerializedName("avatar_url") val webLink: String,
+    @SerializedName("avatar_url") val avatarUrl: String,
     val id: String
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -24,7 +24,7 @@ data class User(
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(name)
-        parcel.writeString(webLink)
+        parcel.writeString(avatarUrl)
         parcel.writeString(id)
     }
 

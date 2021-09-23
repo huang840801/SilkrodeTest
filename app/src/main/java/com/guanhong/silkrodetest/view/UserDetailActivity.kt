@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.guanhong.silkrodetest.R
 import com.guanhong.silkrodetest.User
 
@@ -34,7 +35,7 @@ class UserDetailActivity : AppCompatActivity() {
         val name = findViewById<TextView>(R.id.name)
         val smallName = findViewById<TextView>(R.id.smallName)
         val id = findViewById<TextView>(R.id.id)
-        val webLink = findViewById<TextView>(R.id.webLink)
+        val avatarUrl = findViewById<TextView>(R.id.avatarUrl)
 
         val user = intent.getParcelableExtra<User>(USER)
 
@@ -43,7 +44,12 @@ class UserDetailActivity : AppCompatActivity() {
             name.text = it.name
             smallName.text = it.name
             id.text = it.id
-            webLink.text = it.webLink
+            avatarUrl.text = it.avatarUrl
+
+            Glide.with(this)
+                .load(it.avatarUrl)
+                .circleCrop()
+                .into(findViewById(R.id.imageView))
         }
 
         close.setOnClickListener { finish() }
