@@ -44,9 +44,10 @@ class UserFragment : Fragment(), UserAdapter.UserAdapterListener {
 
         viewModel.userList.observe(viewLifecycleOwner, { userList ->
 
+            adapter.setIsLoading(fromId < 50)
             adapter.setUserList(userList)
 
-            hideProgressBar()
+            progressBar.visibility = View.GONE
         })
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -55,8 +56,6 @@ class UserFragment : Fragment(), UserAdapter.UserAdapterListener {
                 super.onScrolled(recyclerView, dx, dy)
 
                 if (!recyclerView.canScrollVertically(1) && fromId < 50) {
-
-                    showProgressBar()
 
                     fromId += perPage
                     viewModel.getUserList(perPage, fromId)
@@ -73,13 +72,4 @@ class UserFragment : Fragment(), UserAdapter.UserAdapterListener {
         startActivity(intent)
     }
 
-    private fun showProgressBar() {
-
-        progressBar.visibility = View.VISIBLE
-    }
-
-    private fun hideProgressBar() {
-
-        progressBar.visibility = View.GONE
-    }
 }

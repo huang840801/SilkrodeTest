@@ -7,10 +7,14 @@ import com.guanhong.silkrodetest.R
 import com.guanhong.silkrodetest.User
 
 class UserAdapter(private val listener: UserAdapterListener) :
-    RecyclerView.Adapter<UserHolder>(),
+    RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     UserHolder.UserHolderListener {
 
+    private var isLoading = false
     private var userList: List<User> = listOf()
+
+    private val normalType = 1
+    private val loadingType = 2
 
     interface UserAdapterListener {
 
@@ -22,24 +26,46 @@ class UserAdapter(private val listener: UserAdapterListener) :
         listener.itemClick(user)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-        return UserHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_view_user, parent, false),
-            this
-        )
+        return when (viewType) {
+
+            normalType -> UserHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_view_user, parent, false), this)
+            loadingType -> LoadingHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_all_loading, parent, false))
+            else -> throw Exception()
+        }
     }
 
-    override fun onBindViewHolder(holder: UserHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-      holder.bind(userList[position])
+        if (holder is UserHolder) {
+
+            holder.bind(userList[position])
+        }
     }
 
-    override fun getItemCount() = userList.count()
+    override fun getItemCount(): Int {
+
+        var userCount = userList.count()
+
+        if (isLoading) userCount++
+
+        return userCount
+    }
+
+    override fun getItemViewType(position: Int): Int {
+
+        return if (position < userList.count()) normalType else loadingType
+    }
 
     fun setUserList(userList: List<User>) {
 
         this.userList = userList
         notifyDataSetChanged()
+    }
+
+    fun setIsLoading(isLoading: Boolean) {
+
+        this.isLoading = isLoading
     }
 }
