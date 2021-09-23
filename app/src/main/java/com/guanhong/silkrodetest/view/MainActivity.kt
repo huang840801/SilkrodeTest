@@ -34,18 +34,24 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        viewPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+            override fun onPageScrollStateChanged(state: Int) {}
+
+            override fun onPageSelected(position: Int) {
+
+                when (position) {
+                    0 -> bottomNavigation.selectedItemId = R.id.icon_user
+                    1 -> bottomNavigation.selectedItemId = R.id.icon_info
+                }
+            }
+        })
+
         bottomNavigation.setOnNavigationItemSelectedListener {
 
             when (it.itemId) {
-
-                R.id.icon_user -> {
-
-                    viewPager.currentItem = 0
-                }
-                R.id.icon_info -> {
-
-                    viewPager.currentItem = 1
-                }
+                R.id.icon_user -> viewPager.currentItem = 0
+                R.id.icon_info -> viewPager.currentItem = 1
             }
 
             true
