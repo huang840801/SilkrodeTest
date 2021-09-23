@@ -4,24 +4,30 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.guanhong.silkrodetest.R
 import com.guanhong.silkrodetest.User
-import com.guanhong.silkrodetest.view.UserDetailActivity
 import org.koin.android.ext.android.get
 
 class UserFragment : Fragment(), UserAdapter.UserAdapterListener {
 
     private val viewModel: UserViewModel = get()
 
+    private lateinit var listener: UserFragmentListener
     private lateinit var adapter: UserAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
 
     private val perPage = 10
     private var fromId = 0
+
+    interface UserFragmentListener {
+        fun itemClick(user: User, imageView: ImageView, name: TextView) {}
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,9 +72,13 @@ class UserFragment : Fragment(), UserAdapter.UserAdapterListener {
         viewModel.getUserList(perPage, fromId)
     }
 
-    override fun itemClick(user: User) {
+    override fun itemClick(user: User, imageView: ImageView, name: TextView) {
 
-        val intent = UserDetailActivity.getIntent(requireContext(), user)
-        startActivity(intent)
+        listener.itemClick(user, imageView, name)
+    }
+
+    fun setListener(listener: UserFragmentListener) {
+
+        this.listener = listener
     }
 }

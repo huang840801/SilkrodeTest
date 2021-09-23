@@ -52,6 +52,6 @@ class UserDetailActivity : AppCompatActivity() {
                 .into(findViewById(R.id.imageView))
         }
 
-        close.setOnClickListener { finish() }
+        close.setOnClickListener { onBackPressed() }
     }
 }

@@ -2,6 +2,8 @@ package com.guanhong.silkrodetest.view.user
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.guanhong.silkrodetest.R
 import com.guanhong.silkrodetest.User
@@ -18,12 +20,12 @@ class UserAdapter(private val listener: UserAdapterListener) :
 
     interface UserAdapterListener {
 
-        fun itemClick(user: User)
+        fun itemClick(user: User, imageView: ImageView, name: TextView)
     }
 
-    override fun itemClick(user: User) {
+    override fun itemClick(user: User, imageView: ImageView, name: TextView) {
 
-        listener.itemClick(user)
+        listener.itemClick(user, imageView, name)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
